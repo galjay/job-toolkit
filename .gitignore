@@ -1,0 +1,39 @@
+# Secrets
+.env
+backend/.env
+*.pem
+*.key
+
+# Python
+backend/.venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+*.tsbuildinfo
+
+# Local data and generated user content
+backend/data/
+data/
+uploads/
+outputs/
+*.db
+*.sqlite*
+*.local.*
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Worktree helpers
+.workbuddy/
+.worktrees/
+worktrees/
