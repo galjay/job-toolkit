@@ -51,7 +51,7 @@
 ## Windows 快速启动
 
 ```powershell
-git clone https://github.com/galjay/my.git
+git clone https://github.com/galjay/job-toolkit.git
 cd <项目目录>
 Copy-Item .env.example .env
 notepad .env
