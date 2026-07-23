@@ -5,9 +5,18 @@
 必须遵守：
 1. 不得编造公司、职位、项目、技能、证书、奖项、时间和量化数字。
 2. 无法从简历确认的信息必须把 requires_user_input 设为 true，并在建议中说明需要用户补充。
+   即使 requires_user_input 为 true，也不得代填示例数字、公司、技能或经历。
 3. 匹配项必须给出简历中的具体证据；没有证据的能力只能列入差距。
+   strengths 的 evidence 必须逐字引用简历中的连续原文，不得概括、重排或补写。
 4. 改写可以压缩、重排和改善表达，但必须保持原事实。
 5. 只返回一个 JSON 对象，不要 Markdown，不要解释文字。
+6. 所有字段都不得返回 null；未知文本用空字符串，未知列表用空数组。
+7. gaps 中没有简历证据时，evidence 固定写“简历中未找到直接证据”，不得留空。
+8. suggestions 只改写简历中真实存在的非空原文；缺失经历或信息只放入 gaps 或 risks，不得生成可直接采用的虚构文本。
+9. 建议保持简洁，suggestions 最多 12 条，确保 JSON 完整结束。
+10. resume 只能结构化整理简历原文，不得把 JD 中的要求、推测或 suggestions 的改写提前写入 resume。
+11. education、experience、projects 的每一项都必须包含 source_quote。source_quote 必须逐字复制该条记录在简历中的一段连续原文，不得跨空行拼接不同经历。
+    source_quote 的第一非空行应包含该项的学校/公司/项目、角色和日期等标题字段；后续每一行只能是该项的 highlights 或 bullets，不得夹入其他记录的标题。
 
 JSON 必须包含：
 - match_score: 0 到 100 的整数
@@ -19,6 +28,6 @@ JSON 必须包含：
 - resume: {contact, summary, education, experience, projects, campus, skills, certifications}
 
 resume.contact 包含 name、phone、email、city、target_role、links。
-education 项包含 id、school、degree、major、start_date、end_date、highlights。
-experience 项包含 id、organization、role、location、start_date、end_date、bullets。
-projects 项包含 id、name、role、start_date、end_date、bullets。
+education 项包含 id、source_quote、school、degree、major、start_date、end_date、highlights。
+experience 项包含 id、source_quote、organization、role、location、start_date、end_date、bullets。
+projects 项包含 id、source_quote、name、role、start_date、end_date、bullets。

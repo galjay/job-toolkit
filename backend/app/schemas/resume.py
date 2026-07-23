@@ -1,7 +1,9 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
+
+from app.schemas.ai_output import AIOutputModel
 
 
-class ContactInfo(BaseModel):
+class ContactInfo(AIOutputModel):
     name: str = ""
     phone: str = ""
     email: str = ""
@@ -10,8 +12,9 @@ class ContactInfo(BaseModel):
     links: list[str] = Field(default_factory=list)
 
 
-class EducationItem(BaseModel):
+class EducationItem(AIOutputModel):
     id: str = ""
+    source_quote: str = Field(default="", max_length=4_000, exclude=True)
     school: str = ""
     degree: str = ""
     major: str = ""
@@ -20,8 +23,9 @@ class EducationItem(BaseModel):
     highlights: list[str] = Field(default_factory=list)
 
 
-class ExperienceItem(BaseModel):
+class ExperienceItem(AIOutputModel):
     id: str = ""
+    source_quote: str = Field(default="", max_length=4_000, exclude=True)
     organization: str = ""
     role: str = ""
     location: str = ""
@@ -30,8 +34,9 @@ class ExperienceItem(BaseModel):
     bullets: list[str] = Field(default_factory=list)
 
 
-class ProjectItem(BaseModel):
+class ProjectItem(AIOutputModel):
     id: str = ""
+    source_quote: str = Field(default="", max_length=4_000, exclude=True)
     name: str = ""
     role: str = ""
     start_date: str = ""
@@ -39,7 +44,7 @@ class ProjectItem(BaseModel):
     bullets: list[str] = Field(default_factory=list)
 
 
-class ResumeDocument(BaseModel):
+class ResumeDocument(AIOutputModel):
     contact: ContactInfo = Field(default_factory=ContactInfo)
     summary: str = ""
     education: list[EducationItem] = Field(default_factory=list)
@@ -50,19 +55,32 @@ class ResumeDocument(BaseModel):
     certifications: list[str] = Field(default_factory=list)
 
 
-class MatchItem(BaseModel):
+class MatchItem(AIOutputModel):
     name: str = Field(min_length=1, max_length=100)
     evidence: str = Field(min_length=1, max_length=500)
     suggestion: str = Field(default="", max_length=500)
 
 
-class RiskItem(BaseModel):
+class GapItem(AIOutputModel):
+    name: str = Field(min_length=1, max_length=100)
+    evidence: str = Field(default="简历中未找到直接证据", max_length=500)
+    suggestion: str = Field(default="", max_length=500)
+
+    @field_validator("evidence", mode="before")
+    @classmethod
+    def normalize_missing_evidence(cls, value):
+        if value is None or not str(value).strip():
+            return "简历中未找到直接证据"
+        return value
+
+
+class RiskItem(AIOutputModel):
     section: str = Field(min_length=1, max_length=100)
     issue: str = Field(min_length=1, max_length=500)
     action: str = Field(min_length=1, max_length=500)
 
 
-class RewriteSuggestion(BaseModel):
+class RewriteSuggestion(AIOutputModel):
     id: str = Field(min_length=1, max_length=100)
     section: str = Field(min_length=1, max_length=100)
     original: str = Field(min_length=1, max_length=2_000)
@@ -77,11 +95,11 @@ class WorkflowRequest(BaseModel):
     jd_text: str = Field(min_length=10, max_length=20_000)
 
 
-class WorkflowAnalysis(BaseModel):
+class WorkflowAnalysis(AIOutputModel):
     match_score: int = Field(ge=0, le=100)
     target_role: str = Field(default="", max_length=200)
     strengths: list[MatchItem] = Field(default_factory=list, max_length=30)
-    gaps: list[MatchItem] = Field(default_factory=list, max_length=30)
+    gaps: list[GapItem] = Field(default_factory=list, max_length=30)
     risks: list[RiskItem] = Field(default_factory=list, max_length=30)
     suggestions: list[RewriteSuggestion] = Field(default_factory=list, max_length=50)
     resume: ResumeDocument

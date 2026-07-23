@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -31,6 +32,10 @@ class Settings(BaseSettings):
 
     AI_TIMEOUT_SECONDS: float = 60.0
     AI_MAX_CONCURRENCY: int = 2
+    AI_MAX_OUTPUT_TOKENS: int = 8192
+    AI_OUTPUT_TOKEN_PARAM: Literal[
+        "max_tokens", "max_completion_tokens", "none"
+    ] = "max_tokens"
     MAX_UPLOAD_BYTES: int = 8 * 1024 * 1024
     MAX_PDF_PAGES: int = 20
     MAX_DOCUMENT_CHARS: int = 20_000

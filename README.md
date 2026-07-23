@@ -101,7 +101,13 @@ docker compose up --build
 AI_API_KEY=your-ai-api-key
 AI_BASE_URL=https://api.deepseek.com/v1
 AI_MODEL=deepseek-chat
+AI_MAX_OUTPUT_TOKENS=8192
+AI_OUTPUT_TOKEN_PARAM=max_tokens
 ```
+
+`AI_MAX_OUTPUT_TOKENS` 用于给完整的匹配报告和结构化简历预留输出空间。若使用的模型不支持 8192 个输出 token，请按该模型的上限调整。
+
+DeepSeek 等接口使用 `AI_OUTPUT_TOKEN_PARAM=max_tokens`。若模型要求新版参数，可改为 `max_completion_tokens`；若兼容接口不接受输出长度参数，可改为 `none`。
 
 图片模型是可选功能。没有图片 API 时，职业照提示词资源仍然完整可用：
 

@@ -1,11 +1,13 @@
 from pydantic import BaseModel, Field
 
+from app.schemas.ai_output import AIOutputModel
+
 
 class JDRequest(BaseModel):
     jd_text: str = Field(min_length=10, max_length=20_000)
 
 
-class JDAnalysis(BaseModel):
+class JDAnalysis(AIOutputModel):
     summary: str = Field(min_length=1, max_length=2_000)
     responsibilities: list[str] = Field(default_factory=list, max_length=30)
     hard_skills: list[str] = Field(default_factory=list, max_length=30)

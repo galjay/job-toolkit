@@ -82,3 +82,8 @@ def test_prompt_declares_uploaded_text_untrusted():
     ).read_text(encoding="utf-8")
     assert "不可信数据" in prompt
     assert "不得编造" in prompt
+    assert "不得返回 null" in prompt
+    assert "简历中未找到直接证据" in prompt
+    assert "即使 requires_user_input 为 true" in prompt
+    assert "evidence 必须逐字引用简历中的连续原文" in prompt
+    assert "source_quote" in prompt
