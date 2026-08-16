@@ -42,22 +42,19 @@ npm start
 - 不要把 `.env` 或 `.runtime-config.json` 提交到 GitHub。
 - 截图、日志和 issue 中不要粘贴完整 API Key。
 
-## 放到 GitHub
+## 获取项目
 
-在 GitHub 创建一个空仓库后，在本目录执行：
+当前仓库已经包含完整项目代码。克隆后，在项目目录执行：
 
 ```powershell
-git init
-git add .
-git commit -m "feat: create Career Atelier workspace"
-git branch -M main
-git remote add origin https://github.com/<your-name>/<your-repo>.git
-git push -u origin main
+git clone https://github.com/galjay/job-toolkit.git
+cd job-toolkit
+npm start
 ```
 
 请先确认 `git status` 中没有 `.env` 或 `.runtime-config.json`。
 
-## 开源致谢
+## 项目说明
 
-项目功能方向参考了 `galjay/job-toolkit` 的公开产品思路。本项目没有把其仓库代码直接放入本项目；如果未来引入该仓库的具体代码片段，需要同时保留其 MIT License 文本和版权声明。
+项目参考了开源求职工具的产品方向，但采用独立的视觉、交互和代码结构重新实现。简历、岗位描述和 API Key 默认只在本机处理。
 
