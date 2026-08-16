@@ -107,9 +107,9 @@ AI_API_KEY=使用者自己的 API Key
 后端：
 
 ```powershell
-python -m venv backend\\.venv
-backend\\.venv\\Scripts\\python.exe -m pip install -r backend\\requirements.txt
-backend\\.venv\\Scripts\\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000
+python -m venv backend\.venv
+backend\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
+backend\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000
 ```
 
 前端：
@@ -152,8 +152,8 @@ IMAGE_MODEL=
 ## 测试
 
 ```powershell
-backend\\.venv\\Scripts\\python.exe -m pip install -r backend\\requirements-dev.txt
-backend\\.venv\\Scripts\\python.exe -m pytest backend\\tests -q
+backend\.venv\Scripts\python.exe -m pip install -r backend\requirements-dev.txt
+backend\.venv\Scripts\python.exe -m pytest backend\tests -q
 
 cd frontend
 npm test -- --run
