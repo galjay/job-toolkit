@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0d1114" />
+    <title>求职工坊｜简历与岗位分析工作台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <div class="grain"></div>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="求职工坊首页">
+          <span class="brand-mark">CA</span>
+          <span class="brand-copy"><strong>求职工坊</strong><small>简历与岗位分析工作台</small></span>
+        </a>
+        <nav class="nav-links" aria-label="主导航">
+          <button class="nav-link active" data-scroll="workspace">工作台</button>
+          <button class="nav-link" data-scroll="review">审核台</button>
+          <button class="nav-link" data-scroll="delivery">最终交付</button>
+          <button class="nav-link" data-scroll="photo">形象室</button>
+        </nav>
+        <div class="top-actions">
+          <span class="status-chip" id="statusChip"><i></i><span>演示模式</span></span>
+          <button class="icon-button" id="openSettings" title="打开设置" aria-label="打开设置">⚙</button>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="eyebrow"><span class="eyebrow-line"></span> FIELD NOTES / 01 <span class="eyebrow-dot">·</span> 个人求职工作室</div>
+          <div class="hero-row">
+            <div>
+              <h1 id="hero-title">把经历，编辑成<br /><em>更接近机会的证据。</em></h1>
+              <p class="hero-lede">从岗位拆解到简历交付，在一个安静、清晰的本地工作台里完成每一次投递准备。</p>
+            </div>
+            <div class="hero-note"><span>本次工作</span><strong id="sessionLabel">未命名项目</strong><small>草稿自动保存在本机浏览器</small></div>
+          </div>
+        </section>
+
+        <section class="workspace-grid" id="workspace">
+          <aside class="brief-card glass-card">
+            <div class="section-kicker"><span>01</span> 输入材料</div>
+            <div class="mode-switch" role="tablist" aria-label="分析模式">
+              <button class="mode-button active" data-mode="match" role="tab">简历匹配优化</button>
+              <button class="mode-button" data-mode="jd" role="tab">只分析 JD</button>
+            </div>
+
+            <div class="field-block">
+              <div class="field-head"><label for="resumeInput">现有简历</label><span id="resumeCount">0 字</span></div>
+              <textarea id="resumeInput" placeholder="粘贴你的简历内容，或从文件导入……"></textarea>
+              <div class="field-tools"><label class="file-button"><span>↥</span> 导入 PDF / DOCX / TXT<input type="file" id="resumeFile" accept=".pdf,.doc,.docx,.txt,.md" /></label><button class="text-button" data-clear="resumeInput">清空</button></div>
+            </div>
+
+            <div class="field-block jd-field">
+              <div class="field-head"><label for="jdInput">目标岗位 JD</label><span id="jdCount">0 字</span></div>
+              <textarea id="jdInput" placeholder="粘贴岗位描述，放入你准备投递的那一个版本……"></textarea>
+              <div class="field-tools"><label class="file-button"><span>↥</span> 导入岗位文件<input type="file" id="jdFile" accept=".pdf,.doc,.docx,.txt,.md" /></label><button class="text-button" data-clear="jdInput">清空</button></div>
+            </div>
+
+            <button class="primary-button analyze-button" id="analyzeButton"><span class="button-icon">✦</span><span>开始分析</span><span class="button-arrow">↗</span></button>
+            <div class="demo-hint"><span class="pulse-dot"></span><span>没有 API Key？先用演示模式体验完整流程。</span><button id="demoButton">载入示例</button></div>
+          </aside>
+
+          <section class="insights-card glass-card" aria-live="polite">
+            <div class="insights-head"><div><div class="section-kicker"><span>02</span> 分析简报</div><h2 id="resultTitle">等你把材料放上来</h2></div><span class="result-stamp" id="resultStamp">LOCAL / READY</span></div>
+            <div class="empty-result" id="emptyResult"><div class="empty-orbit"><span>✦</span></div><h3>先从一份真实 JD 开始</h3><p>粘贴简历和岗位描述，或点击“载入示例”，这里会生成一份可审核的匹配简报。</p><button class="outline-button" id="emptyDemoButton">查看演示简报 <span>↗</span></button></div>
+            <div class="result-content hidden" id="resultContent">
+              <div class="score-row"><div class="score-ring" id="scoreRing"><div><strong id="scoreNumber">--</strong><small>匹配度</small></div></div><div class="score-copy"><span class="micro-label">EDITORIAL NOTE</span><h3 id="resultHeadline">—</h3><p id="resultSummary">—</p></div></div>
+              <div class="metric-grid"><div class="metric-card mint"><span>优势线索</span><strong id="strengthCount">0</strong><small>可直接保留</small></div><div class="metric-card amber"><span>能力缺口</span><strong id="gapCount">0</strong><small>建议补证据</small></div><div class="metric-card rose"><span>投递风险</span><strong id="riskCount">0</strong><small>提交前核实</small></div></div>
+              <div class="result-columns"><div><div class="subhead"><span>关键词地图</span><small>JD SIGNALS</small></div><div class="tag-cloud" id="keywordCloud"></div></div><div><div class="subhead"><span>下一步动作</span><small>PRIORITY QUEUE</small></div><div class="action-list" id="actionList"></div></div></div>
+            </div>
+          </section>
+        </section>
+
+        <section class="lower-grid" id="review">
+          <section class="review-card glass-card">
+            <div class="section-kicker"><span>03</span> 审核台 / Rewrite Desk</div>
+            <div class="panel-title-row"><div><h2>不要让 AI 替你做决定</h2><p>每一条改写都保留原文、证据和人工审核按钮。</p></div><div class="review-count" id="reviewCount">0 / 0 已确认</div></div>
+            <div class="review-list" id="reviewList"><div class="placeholder-row">完成一次分析后，逐条改写建议会出现在这里。</div></div>
+            <div class="panel-footer"><span><i class="legend-dot amber-dot"></i> 待人工核实</span><div><button class="outline-button" id="exportButton">导出分析稿 <span>↓</span></button><button class="primary-button compact" id="jumpDeliveryButton">生成最终简历 <span>↗</span></button></div></div>
+          </section>
+
+          <section class="photo-card glass-card" id="photo">
+            <div class="section-kicker"><span>05</span> 形象室 / Portrait Lab</div>
+            <div class="photo-head"><div><h2>职业形象，也要有证据感</h2><p>本地处理照片；没有图片 API 时，提示词资源仍然可用。</p></div><span class="optional-badge">OPTIONAL</span></div>
+            <div class="photo-stage" id="photoStage"><div class="photo-grid-lines"></div><div class="photo-placeholder"><span>◌</span><strong>拖入一张照片</strong><small>或点击下方选择文件</small></div><img id="photoPreview" alt="职业照预览" /></div>
+            <div class="photo-controls"><label class="file-button wide"><span>＋</span> 选择照片<input type="file" id="photoFile" accept="image/*" /></label><label>背景 <input type="color" id="bgColor" value="#e7eceb" /></label><label>比例 <select id="photoRatio"><option value="1">1 : 1</option><option value="0.75">3 : 4</option><option value="0.666">2 : 3</option></select></label></div>
+            <button class="outline-button full-button" id="promptButton">生成职业照提示词 <span>✦</span></button>
+            <div class="prompt-result hidden" id="promptResult"></div>
+          </section>
+        </section>
+        <section class="delivery-card glass-card" id="delivery">
+          <div class="section-kicker"><span>04</span> 最终交付 / ATS Resume</div>
+          <div class="delivery-head"><div><h2>这才是最后要投出去的版本</h2><p>接受的建议会写入最终简历；拒绝的建议不会进入导出。模板使用单栏、标准标题和纯文本结构，方便 ATS 读取。</p></div><span class="delivery-status" id="deliveryStatus">等待审核</span></div>
+          <div class="ats-meta-grid"><label>姓名<input id="atsName" placeholder="例如：张三" /></label><label>目标岗位<input id="atsRole" placeholder="例如：AI 产品运营" /></label><label>联系方式<input id="atsContact" placeholder="手机 · 邮箱 · 城市" /></label></div>
+          <div class="delivery-grid">
+            <div class="delivery-editor"><div class="subhead"><span>最终简历正文</span><small>EDITABLE</small></div><textarea id="finalResumeInput" placeholder="完成分析后，这里会生成最终简历正文；你也可以手工修改。"></textarea><div class="editor-note"><span>✓ 可手工编辑</span><span>✓ 不含图标和复杂表格</span><span>✓ 适合 ATS 解析</span></div></div>
+            <div class="ats-preview-wrap"><div class="subhead"><span>ATS 预览</span><small>ONE COLUMN / TEXT FIRST</small></div><article class="ats-preview" id="atsPreview"><div class="ats-empty">完成分析后，最终简历会在这里排版预览。</div></article></div>
+          </div>
+          <div class="delivery-footer"><span class="delivery-warning" id="deliveryWarning">建议先审核所有改写项，再导出投递版。</span><div><button class="outline-button" id="exportTxtButton">导出纯文本</button><button class="outline-button" id="exportWordButton">导出 Word ATS</button><button class="primary-button compact" id="printAtsButton">打印 / PDF <span>↗</span></button></div></div>
+        </section>
+      </main>
+
+      <footer class="footer"><span>求职工坊 / 本地优先</span><span>你的经历归你所有 · 每个建议都需要你确认</span><button id="footerSettings">打开本机设置</button></footer>
+    </div>
+
+    <div class="modal-backdrop hidden" id="onboardingModal" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
+      <div class="setup-modal">
+        <div class="modal-orb">✦</div><span class="modal-kicker">WELCOME TO THE ATELIER</span><h2 id="onboardingTitle">先把你的工作室<br /><em>接上自己的模型。</em></h2><p>Key 只发送到本机后端和你指定的模型服务商，不会写进前端代码，也不会自动上传到 GitHub。</p>
+        <div class="setup-fields"><label>文本 AI API Key<input id="onTextKey" type="password" placeholder="sk-…" autocomplete="off" /></label><label>Base URL<input id="onTextBase" value="https://api.deepseek.com/v1" /></label><label>文本模型<input id="onTextModel" value="deepseek-chat" /></label><div class="setup-divider"><span>可选 · 图片接口</span></div><label>图片 API Key<input id="onImageKey" type="password" placeholder="没有也可以跳过" autocomplete="off" /></label><div class="two-fields"><label>图片 Base URL<input id="onImageBase" placeholder="https://…/v1" /></label><label>图片模型<input id="onImageModel" placeholder="image-model" /></label></div></div>
+        <div class="modal-actions"><button class="text-button" id="skipSetup">先用演示模式</button><div class="modal-actions-right"><button class="outline-button" id="saveOnboardingDirect">保存并使用</button><button class="primary-button" id="saveOnboarding">测试并保存 <span>↗</span></button></div></div><p class="modal-footnote">建议使用与你的 Base URL 对应的 Key。不同服务商的 Key 不能混用。</p>
+      </div>
+    </div>
+
+    <div class="modal-backdrop hidden" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="settings-modal"><div class="modal-top"><div><span class="modal-kicker">WORKSHOP SETTINGS</span><h2 id="settingsTitle">本机连接设置</h2></div><button class="close-button" data-close="settingsModal">×</button></div><p class="settings-note">修改后立即生效。Key 不会显示在页面上，也不会通过状态接口返回。</p><div class="setup-fields"><label>文本 AI API Key<input id="setTextKey" type="password" placeholder="输入新 Key 才会覆盖" autocomplete="off" /></label><div class="two-fields"><label>Base URL<input id="setTextBase" /></label><label>文本模型<input id="setTextModel" /></label></div><div class="setup-divider"><span>可选 · 图片接口</span></div><label>图片 API Key<input id="setImageKey" type="password" placeholder="输入新 Key 才会覆盖" autocomplete="off" /></label><div class="two-fields"><label>图片 Base URL<input id="setImageBase" placeholder="https://…/v1" /></label><label>图片模型<input id="setImageModel" placeholder="image-model" /></label></div></div><div class="settings-status" id="settingsStatus">状态读取中…</div><div class="modal-actions"><button class="danger-button" id="clearConfig">清除本机配置</button><div class="modal-actions-right"><button class="outline-button" id="saveSettingsDirect">保存并使用</button><button class="primary-button" id="saveSettings">测试并保存 <span>↗</span></button></div></div></div>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
+
